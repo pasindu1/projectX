@@ -25,13 +25,19 @@ const Home = () => {
       scope: "openid",
     });
     let config = {
-      url: "/token",
+      url: "https://dev-project-x.auth.ap-southeast-1.amazoncognito.com/oauth2/token",
       method: "post",
       data,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Cookie:
+          "XSRF-TOKEN=225ad24b-e6fd-442d-b150-412b58f42401; __Host-GAPS=1:KLfRIUPncH6Kp9XcZYAKQG6xgr8w0w:PGZ3wTKELIgMBeEE",
+      },
     };
     setIsLoading(true);
     try {
       const response = await axios.request(config);
+      console.log('response', response.data)
       if (response?.status === 200) {
         useAuthStore.setState({
           token: response.data,
